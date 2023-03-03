@@ -2,6 +2,7 @@
 
 // YET TO DO LIST
 // - string together answers
+// - maybe use numKeyHit to clear after = has been hit?
 
 // create variables for DOM items
 
