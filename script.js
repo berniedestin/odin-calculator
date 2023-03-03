@@ -4,9 +4,14 @@
 
 const subHead = document.querySelector('.sub-head')
 const calcShow = document.querySelector('#calc-show')
-const calcOutput = document.querySelector('#calc-ooutput')
+const calcOutput = document.querySelector('#calc-output')
 const buttons = document.querySelectorAll('.btn-basic')
 buttons.forEach( button => button.addEventListener('click', assignValue))
+
+// subHead.textContent = ''
+// calcShow.textContent = ''
+// calcOutput.textContent = ''
+
 
 // this object is for actually holding the values
 const bgMath = {}
@@ -14,23 +19,55 @@ const bgMath = {}
 // assignValue function is the workhorse of this script
 function assignValue(){
     const buttonName = this.id.slice(4)
-    // console.log(buttonName)
+    console.log(buttonName)
     if ( buttonName == 'op') {
         // check if can run operator
         // run operator
     } else if ( buttonName == 'clear') {
-        // run clear
+        clear()
     } else if ( buttonName == '+' || 
                 buttonName == '-' ||
                 buttonName == '*' ||
                 buttonName == '/' ) {
         // check if calcShow has value
+        console.log("outside of if")
+        if ( !("num1" in bgMath) && !("num2" in bgMath)) {
+            subHead.textContent = 'You need to enter a number first';
+        } else if ( "operator" in bgMath ) {
+            subHead.textContent = 'You already entered an operator'
+            // bgMath.operator = buttonName
+            // showMath()
+        } else {
+            bgMath.operator = buttonName
+            showMath()            
+        }
         // then add to calcShow
         // add to other array?
     } else {
-        // add to calcShow
-        // add to other array?
+        if ( !("num1" in bgMath) ) {
+            bgMath.num1 = buttonName
+            showMath()
+        } else if ( !("num2" in bgMath) && "operator" in bgMath) {
+            bgMath.num2 = buttonName
+            showMath()
+        } else if ( !("num2" in bgMath) && !("operator" in bgMath)) {
+            subHead.textContent = "You need to enter an operator"
+        } else {
+            subHead.textContent = "You already entered two numbers"
+        }
     }
+}
+
+function showMath() {
+    if ( "num1" in bgMath && "operator" in bgMath && "num2" in bgMath) {
+        calcShow.textContent = `${bgMath.num1} ${bgMath.operator} ${bgMath.num2}`
+    } else if ( "num1" in bgMath && "operator" in bgMath) {
+        calcShow.textContent = `${bgMath.num1} ${bgMath.operator}`
+    } else if ( "num1" in bgMath) {
+        calcShow.textContent = `${bgMath.num1}`
+    } else {
+        calcShow.textContent = ''
+    }    
 }
 
 function clear() {
