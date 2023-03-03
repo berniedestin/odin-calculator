@@ -23,5 +23,21 @@ function subtract(){
 }
 
 // multiply funtion
+function mult(){
+    if (arguments.length < 2) return "ERROR"
+    let ans = arguments[0]
+    for ( let i = 1; i < arguments.length; i++) {
+        ans *= arguments[i]
+    }
+    return ans
+}
 
 // divide function
+function divide(){
+    if (arguments.length < 2) return "ERROR"
+    let ans = arguments[0]
+    for ( let i = 1; i < arguments.length; i++) {
+        ans /= arguments[i]
+    }
+    return Math.round( ans * 1000000) / 1000000
+}
