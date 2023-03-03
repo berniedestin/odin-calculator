@@ -1,6 +1,36 @@
 // calculator
 
 // create variables for DOM items
+
+const subHead = document.querySelector('.sub-head')
+const calcShow = document.querySelector('#calc-show')
+const calcOutput = document.querySelector('#calc-ooutput')
+const buttons = document.querySelectorAll('.btn-basic')
+buttons.forEach( button => button.addEventListener('click', assignValue))
+
+
+// assignValue function is the workhorse of this script
+function assignValue(){
+    const buttonName = this.id.slice(4)
+    // console.log(buttonName)
+    if ( buttonName == 'op') {
+        // check if can run operator
+        // run operator
+    } else if ( buttonName == 'clear') {
+        // run clear
+    } else if ( buttonName == '+' || 
+                buttonName == '-' ||
+                buttonName == '*' ||
+                buttonName == '/' ) {
+        // check if calcShow has value
+        // then add to calcShow
+        // add to other array?
+    } else {
+        // add to calcShow
+        // add to other array?
+    }
+}
+
 // operate function per Odin
 function operate(symOperator,a,b){
     // Error catch symOperator not a string
