@@ -20,6 +20,8 @@ const bgMath = {}
 function assignValue(){
     // makes variable out of everything after the "btn-"
     const buttonName = this.id.slice(4)
+    // erase error message
+    subHead.textContent = ''
     // checks which button was pressed and acts 
     if ( buttonName == 'op') {
         // check if can run operator

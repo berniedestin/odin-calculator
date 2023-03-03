@@ -24,6 +24,11 @@ body {
     flex-shrink: 0;
 }
 
+.sub-head {
+    flex-basis: 20px;
+    color: red;
+}
+
 .calc-body {
     width: 400px;
     height: 500px;
