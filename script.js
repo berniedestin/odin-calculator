@@ -58,7 +58,7 @@ function clear() {
 }
 
 function isEq(){
-    console.table(bgMath)
+    // console.table(bgMath)
     // check if can run operator
     if ( bgMath.isEval) return;
     if ( arguments[0] === "special" && 
@@ -68,7 +68,7 @@ function isEq(){
         "ans" in bgMath) {
         // special with ans
 
-        bgMath.ans = operate(bgMath.operator,bgMath.num2,bgMath.ans)
+        bgMath.ans = operate(bgMath.operator,bgMath.ans,bgMath.num2)
         if (bgMath.ans == Infinity) {
             clear()
             subHead.textContent = "Snarky snark YARR!"
@@ -107,11 +107,14 @@ function isEq(){
 
 function isOperator(buttonName){
     // update show
+    if (bgMath.justHit) return;
     showMath(calcOutput.textContent)
     if ( !("num1" in bgMath) && !("num2" in bgMath)) {
         // no numbers entered yet
         subHead.textContent = 'You need to enter a number first';
     } else if ( "operator" in bgMath && "ans" in bgMath ) {
+        // if (!bgMath.isEval) return;
+        if ( bgMath.operator == calcShow.textContent.slice(calcShow.textContent.length -1)) return;
         bgMath.isEval = false
         // adds operator if ans exists
         isEq("special")
@@ -122,6 +125,8 @@ function isOperator(buttonName){
     } else if ( 'operator' in bgMath && 
                 'num1' in bgMath &&
                 'num2' in bgMath ) {
+        // if (!bgMath.isEval) return;
+        if ( bgMath.operator == calcShow.textContent.slice(calcShow.textContent.length -1)) return;
         bgMath.isEval = false
         isEq("special")
         bgMath.num1 = bgMath.ans
@@ -134,9 +139,11 @@ function isOperator(buttonName){
         bgMath.operator = buttonName
         showMath(buttonName)
     }
+    bgMath.justHit = true
 }
 
 function isNumKey(buttonName){
+
     bgMath.isEval = false
     if ( !("num1" in bgMath)) {
         // no num1, so fill in num1
@@ -163,6 +170,7 @@ function isNumKey(buttonName){
     } else {
         subHead.textContent = "You already entered two numbers"
     }
+    bgMath.justHit = false
 }
 
 // operate function per Odin
@@ -172,17 +180,17 @@ function operate(symOperator,a,b){
     // Error catch a not number
     if (typeof(a) != 'number') {
         if (typeof(a) == 'string' ) {
-            a = +a
+            a = Number(a)
             if ( isNaN(a) )  return "ERROR"
         }
     }
     // Error catch b not number
     if (typeof(b) != 'number') {
         if (typeof(b) == 'string' ) {
-            b = +b
+            b = Number(b)
             if ( isNaN(b) )  return "ERROR"
         }
-    }    
+    }
     // runs correct function bsed on operator
     if ( symOperator === "+" ) {
         return add(a,b)
