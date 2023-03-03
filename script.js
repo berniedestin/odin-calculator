@@ -8,6 +8,8 @@ const calcOutput = document.querySelector('#calc-ooutput')
 const buttons = document.querySelectorAll('.btn-basic')
 buttons.forEach( button => button.addEventListener('click', assignValue))
 
+// this object is for actually holding the values
+const bgMath = {}
 
 // assignValue function is the workhorse of this script
 function assignValue(){
@@ -29,6 +31,16 @@ function assignValue(){
         // add to calcShow
         // add to other array?
     }
+}
+
+function clear() {
+    // this is for clearing the fields
+    subHead.textContent = ''
+    calcShow.textContent = ''
+    calcOutput.textContent = ''
+    if ( "operator" in bgMath) delete bgMath.operator;
+    if ( "num1" in bgMath) delete bgMath.num1;
+    if ( "num2" in bgMath) delete bgMath.num2;
 }
 
 // operate function per Odin
