@@ -37,6 +37,7 @@ body {
 #calc-show {
     flex-basis: 40px;
     width: 300px;
+    font-size: 18px;
     box-sizing: border-box;
     border: 3px solid black;
     border-top: 3px solid black;
@@ -46,8 +47,6 @@ body {
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     align-self: center;
-
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,9 +55,13 @@ body {
 
 #calc-output {
     flex-basis: 60px;
+    font-size: 28px;
     box-sizing: border-box;
     border: 3px solid black;
     border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .row {
