@@ -18,10 +18,15 @@ const bgMath = {}
 
 // assignValue function is the workhorse of this script
 function assignValue(){
+    // makes variable out of everything after the "btn-"
     const buttonName = this.id.slice(4)
-    console.log(buttonName)
+    // checks which button was pressed and acts 
     if ( buttonName == 'op') {
         // check if can run operator
+        if ( "num1" in bgMath && "operator" in bgMath && "num2" in bgMath) {
+            bgMath.ans = operate(bgMath.operator,bgMath.num1,bgMath.num2)
+            showMath()
+        }
         // run operator
     } else if ( buttonName == 'clear') {
         clear()
@@ -29,26 +34,30 @@ function assignValue(){
                 buttonName == '-' ||
                 buttonName == '*' ||
                 buttonName == '/' ) {
-        // check if calcShow has value
-        console.log("outside of if")
+        updateOutput("")
         if ( !("num1" in bgMath) && !("num2" in bgMath)) {
+            // no numbers entered yet
             subHead.textContent = 'You need to enter a number first';
         } else if ( "operator" in bgMath ) {
+            // already operator
             subHead.textContent = 'You already entered an operator'
-            // bgMath.operator = buttonName
-            // showMath()
         } else {
             bgMath.operator = buttonName
             showMath()            
         }
-        // then add to calcShow
-        // add to other array?
     } else {
+        // checks to erase old data
+        if ( "ans" in bgMath) clear();
+        // runs normal numbers
         if ( !("num1" in bgMath) ) {
+            // no num1, so fill in num1
             bgMath.num1 = buttonName
+            updateOutput(buttonName)
             showMath()
         } else if ( !("num2" in bgMath) && "operator" in bgMath) {
+            // operator, but no num2, fill in num2
             bgMath.num2 = buttonName
+            updateOutput(buttonName)
             showMath()
         } else if ( !("num2" in bgMath) && !("operator" in bgMath)) {
             subHead.textContent = "You need to enter an operator"
@@ -59,15 +68,20 @@ function assignValue(){
 }
 
 function showMath() {
-    if ( "num1" in bgMath && "operator" in bgMath && "num2" in bgMath) {
+    if ( "num1" in bgMath && "operator" in bgMath && "num2" in bgMath && "ans" in bgMath )  {
         calcShow.textContent = `${bgMath.num1} ${bgMath.operator} ${bgMath.num2}`
+        calcOutput.textContent = ''
+        calcOutput.textContent = `${bgMath.ans}`
     } else if ( "num1" in bgMath && "operator" in bgMath) {
         calcShow.textContent = `${bgMath.num1} ${bgMath.operator}`
-    } else if ( "num1" in bgMath) {
-        calcShow.textContent = `${bgMath.num1}`
     } else {
         calcShow.textContent = ''
     }    
+}
+
+function updateOutput(num) {
+    calcOutput.textContent = ''
+    calcOutput.textContent = num
 }
 
 function clear() {
@@ -78,6 +92,7 @@ function clear() {
     if ( "operator" in bgMath) delete bgMath.operator;
     if ( "num1" in bgMath) delete bgMath.num1;
     if ( "num2" in bgMath) delete bgMath.num2;
+    if ( "ans" in bgMath) delete bgMath.ans;
 }
 
 // operate function per Odin
