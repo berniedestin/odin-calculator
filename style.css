@@ -95,6 +95,7 @@ body {
     box-sizing: border-box;
     border: 3px solid black;
     border-radius: 35px;
+    /* box-shadow: 16px ; */
 }
 
 .btn-basic:hover {
@@ -104,6 +105,16 @@ body {
     font-size: 29px;
     text-decoration: underline;
 
+}
+
+.btn-basic:active{
+    flex-basis: 64px;
+    height: 64px;
+    border-radius: 32px;
+    font-size: 22px;
+    background-color: black;
+    color: white;
+    border-color: darkgray;
 }
 
 .footer {
