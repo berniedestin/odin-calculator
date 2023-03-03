@@ -29,7 +29,6 @@ function assignValue(){
             bgMath.ans = operate(bgMath.operator,bgMath.num1,bgMath.num2)
             showMath()
         }
-        // run operator
     } else if ( buttonName == 'clear') {
         clear()
     } else if ( buttonName == '+' || 
@@ -37,6 +36,8 @@ function assignValue(){
                 buttonName == '*' ||
                 buttonName == '/' ) {
         updateOutput("")
+        // checks to erase old data
+        if ( "ans" in bgMath) clear();
         if ( !("num1" in bgMath) && !("num2" in bgMath)) {
             // no numbers entered yet
             subHead.textContent = 'You need to enter a number first';
@@ -51,15 +52,26 @@ function assignValue(){
         // checks to erase old data
         if ( "ans" in bgMath) clear();
         // runs normal numbers
-        if ( !("num1" in bgMath) ) {
+        if ( !("num1" in bgMath)) {
             // no num1, so fill in num1
             bgMath.num1 = buttonName
+            console.log("first if")
             updateOutput(buttonName)
+            showMath()
+        } else if ( "num1" in bgMath && !("operator" in bgMath)){
+            // num1 needs to be appended, no operator yet
+            bgMath.num1 = `${bgMath.num1}${buttonName}`
+            updateOutput(bgMath.num1)
             showMath()
         } else if ( !("num2" in bgMath) && "operator" in bgMath) {
             // operator, but no num2, fill in num2
             bgMath.num2 = buttonName
             updateOutput(buttonName)
+            showMath()
+        } else if ( ("num2" in bgMath) && "operator" in bgMath) {
+            // operator and num2, append num2
+            bgMath.num2 = `${bgMath.num2}${buttonName}`
+            updateOutput(bgMath.num2)
             showMath()
         } else if ( !("num2" in bgMath) && !("operator" in bgMath)) {
             subHead.textContent = "You need to enter an operator"
